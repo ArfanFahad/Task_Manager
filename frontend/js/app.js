@@ -30,6 +30,7 @@ function addTaskToUI (taskText) {
     // toggle: completed class on click 
     li.addEventListener("click", () => {
         li.classList.toggle("completed");
+        saveTasksToLocalStorage();
     })
 
 
@@ -39,34 +40,40 @@ function addTaskToUI (taskText) {
     deleteBtn.style.margin = "0.5rem";
     deleteBtn.addEventListener("click", () => {
         li.remove();
+        saveTasksToLocalStorage();
     });
 
     li.appendChild(deleteBtn);
     taskList.appendChild(li);
+
+    saveTasksToLocalStorage();
 }
 
 
-
 // Function to save tasks to lcoal storage 
-function saveTasksToLocalStorage () {
+function saveTasksToLocalStorage() {
     const tasks = [];
 
     document.querySelectorAll("#taskList li").forEach((li) => {
         tasks.push({
-            text: li.textContent.replace("Delte", "").trim(), 
+            text: li.textContent.replace("Delete", "").trim(),
             completed: li.classList.contains("completed")
         });
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    })
+    });
+    console.log('Tasks before saving to LocalStorage: ', tasks);
+    localStorage.setItem("tasks", JSON.stringify(tasks)); 
 }
 
-// Function to load tasks from local storage 
 function loadTasksFromLocalStorage() {
     const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
     savedTasks.forEach((task) => {
         addTaskToUI(task.text);
+
         if(task.completed) {
             taskList.lastChild.classList.add("completed");
         }
     });
 }
+
+
