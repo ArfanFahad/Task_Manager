@@ -17,15 +17,19 @@ addTaskBtn.addEventListener("click", () => {
     }
 
     addTaskToUI(taskText);
+    saveTasksToLocalStorage();
     taskInput.value = "";
 
 });
 
 
+
+// function to add task to ui
 function addTaskToUI (taskText, completed = false) {
     const li = document.createElement("li");
     li.textContent = taskText;
 
+    // mark completed tasks 
     if (completed) {
         li.classList.add("completed");
     }
@@ -36,6 +40,9 @@ function addTaskToUI (taskText, completed = false) {
         li.classList.toggle("completed");
         saveTasksToLocalStorage();
     })
+
+    // enable editing on double-click 
+    li.addEventListener("dblclick", ()=> editTask(li));
 
 
     // add delete button 
@@ -50,7 +57,41 @@ function addTaskToUI (taskText, completed = false) {
     li.appendChild(deleteBtn);
     taskList.appendChild(li);
 
-    saveTasksToLocalStorage();
+    // saveTasksToLocalStorage();
+}
+
+// function to edit task 
+function editTask (li) {
+    const oldText = li.firstChild.textContent;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = oldText;
+
+
+    //replace text with input field 
+    li.textContent = "";
+    li.appendChild(input);
+    input.focus();
+
+    //save changes when enter is pressed or input loses focus 
+    input.addEventListener("blur", ()=>saveTasksToLocalStorage(li, input));
+    input.addEventListener("keypress", (e) => {
+        if(e.key === "Enter") {
+            savedEditedTask(li, input);
+        }
+    });
+}
+
+//function to save the edited task 
+function savedEditedTask (li, input) {
+    const newText = input.value.trim();
+    if (newText) {
+        li.textContent = newText;
+        li.addEventListener("dblclick",()=>editTask(li));
+        saveTasksToLocalStorage();
+    } else {
+        li.remove();
+    }
 }
 
 
@@ -73,6 +114,7 @@ function loadTasksFromLocalStorage() {
     savedTasks.forEach((task) => {
         addTaskToUI(task.text, task.completed);
     });
+    
     saveTasksToLocalStorage();
 }
 
