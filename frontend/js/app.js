@@ -22,9 +22,13 @@ addTaskBtn.addEventListener("click", () => {
 });
 
 
-function addTaskToUI (taskText) {
+function addTaskToUI (taskText, completed = false) {
     const li = document.createElement("li");
     li.textContent = taskText;
+
+    if (completed) {
+        li.classList.add("completed");
+    }
 
 
     // toggle: completed class on click 
@@ -60,7 +64,6 @@ function saveTasksToLocalStorage() {
             completed: li.classList.contains("completed")
         });
     });
-    console.log('Tasks before saving to LocalStorage: ', tasks);
     localStorage.setItem("tasks", JSON.stringify(tasks)); 
 }
 
@@ -68,12 +71,9 @@ function loadTasksFromLocalStorage() {
     const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     savedTasks.forEach((task) => {
-        addTaskToUI(task.text);
-
-        if(task.completed) {
-            taskList.lastChild.classList.add("completed");
-        }
+        addTaskToUI(task.text, task.completed);
     });
+    saveTasksToLocalStorage();
 }
 
 
