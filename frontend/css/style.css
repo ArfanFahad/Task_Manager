@@ -1,10 +1,91 @@
-
-.completed {
-    text-decoration: line-through;
-    color: gray;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
 
+body {
+  margin: 2rem;
+}
 
+#task-input-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
 
+.btn-style:hover,
+#addTaskBtn:hover {
+  background-color: rgb(16, 80, 133);
+  color: #f1f1f1;
+  transition: background 0.3s all;
+}
 
+.btn-style,
+#addTaskBtn {
+  padding: 0.4rem 0.5rem;
+  color: black;
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn-style:not(:nth-child(2)) {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 3rem;
+}
+
+/* input */
+#taskInput {
+  border: none;
+  background-color: gainsboro;
+  height: 1.8rem;
+  width: 12%;
+  padding-left: 10px;
+}
+
+#taskInput:hover {
+  outline: none;
+}
+
+#taskInput:focus-within {
+  outline: none;
+}
+
+/* addTaskBtn */
+#addTaskBtn {
+  margin-left: 10px;
+  height: 2rem;
+  font-weight: bold;
+}
+
+/* taskList */
+#taskList {
+  list-style: none;
+  padding: 0;
+}
+
+#taskList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f8f8;
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+#taskList li button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+}
