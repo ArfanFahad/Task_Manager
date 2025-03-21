@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TASK MANAGER</title>
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
-    
-    <h1>Task Manager</h1>
-
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- Heading -->
+    <h1 class="tsk-manager">Task Manager</h1>
+    <!-- Navigation Button -->
+    <button class="btn-style home-btn">Home</button>
+    <button class="btn-style task-btn" id="getTaskBtn">Get Tasks</button>
 
     <!-- input and add task button -->
-     <div id="task-input-section">
-        <input type="text" name="" id="taskInput" placeholder="Enter a task">
-        <button id="addTaskBtn">Add Task</button>
-     </div>
+    <div id="task-input-section">
+      <input type="text" name="" id="taskInput" placeholder="Enter a task" />
+      <button id="addTaskBtn">Add Task</button>
+    </div>
 
-     <!-- Task List -->
-      <ul id="taskList"></ul>
+    <!-- Task List -->
+    <ul id="taskList"></ul>
 
-
-
-
-
-    <script src="./js/app.js"></script>
-</body>
+    <script type="module" src="./js/app.js"></script>
+  </body>
 </html>
