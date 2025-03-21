@@ -15,7 +15,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "nodemon": "^3.1.9",
-    "pg": "^8.14.0"
+    "pg": "^8.14.0",
+    "ua-parser-js": "^2.0.3"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
