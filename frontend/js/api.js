@@ -10,3 +10,12 @@ export async function fetchTasksFromDB() {
     return [];
   }
 }
+
+// Delete task from database
+export async function deleteTaskFromDB(taskId) {
+  try {
+    await fetch(`${base_url}/${taskId}`, { method: "DELETE" });
+  } catch (error) {
+    console.error("Error deleting task: ", error);
+  }
+}
