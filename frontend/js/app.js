@@ -1,8 +1,14 @@
 // selecting elements
-import { fetchTasksFromDB, deleteTaskFromDB } from "./api.js";
-const taskInput = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTaskBtn");
+import { fetchTasksFromDB, createTaskInDB } from "./api.js";
+import { addTaskToUI } from "./ui.js";
+
 const taskList = document.getElementById("taskList");
+let inputValue;
+
+// Waiting for DOM to load before assignment
+document.addEventListener("DOMContentLoaded", () => {
+  inputValue = document.getElementById("taskInput");
+});
 
 // Load tasks when the page loads
 document.getElementById("getTaskBtn").addEventListener("click", async () => {
@@ -19,27 +25,12 @@ document.getElementById("getTaskBtn").addEventListener("click", async () => {
   }
 });
 
-// Function to display tasks with a Delete button
-function addTaskToUI(task) {
-  const li = document.createElement("li");
-  li.textContent = task.task_name;
-  li.dataset.id = task.id;
-
-  // Add Delete Button
-  const deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "Delete";
-  deleteBtn.addEventListener("click", async () => {
-    try {
-      await deleteTaskFromDB(task.id);
-      li.remove();
-    } catch (error) {
-      console.error("Error deleting task: ", error);
-    }
-  });
-
-  // Append the Delete button to the list item
-  li.appendChild(deleteBtn);
-
-  // Append the list item to the task list
-  taskList.appendChild(li);
-}
+// Event for taking the value
+document.getElementById("addTaskBtn").addEventListener("click", async () => {
+  const getValue = inputValue.value.trim();
+  try {
+    await createTaskInDB(getValue);
+  } catch (error) {
+    console.error("Error Passing Data: ", error);
+  }
+});
