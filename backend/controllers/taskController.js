@@ -1,7 +1,6 @@
 import {
   getAllTasks,
-  addTask,
-  updateTask,
+  insertDataInDB,
   deleteTask,
 } from "../models/taskModel.js";
 
@@ -16,33 +15,30 @@ export const getTasks = async (req, res) => {
   }
 };
 
-// controller to add a task
+// Controller to add new task
 export const createTask = async (req, res) => {
-  const { taskName, task_status } = req.body;
   try {
-    const task = await addTask(taskName, task_status);
-    res.status(201).json(task);
-  } catch (error) {
-    console.error("Error adding task: ", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+    const { task_name } = req.body;
 
-// controller to update a task
-export const modifyTask = async (req, res) => {
-  const { id } = req.params;
-  const { taskName, task_status } = req.body;
-
-  try {
-    const updated_Task = await updateTask(id, taskName, task_status);
-    if (updated_Task) {
-      res.json(updateTask);
-    } else {
-      res.status(404).json({ error: "Task not found" });
+    // Input Validation
+    if (!task_name || typeof task_name != "string") {
+      return res.status(400).json({
+        error: "Task name is required and must be a string",
+      });
     }
+
+    // Insert into DB
+    const insertableDate = await insertDataInDB(task_name);
+
+    // Return the created task with 201 status
+    res.status(201).json({
+      success: true,
+      messsage: "Task created successfully",
+      task: insertableDate,
+    });
   } catch (error) {
-    console.error("Error updating task: ", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error Sending Data: ", error);
+    throw error;
   }
 };
 
