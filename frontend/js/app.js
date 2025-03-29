@@ -1,11 +1,20 @@
 // selecting elements
 import { fetchTasksFromDB, createTaskInDB } from "./api.js";
-import { addTaskToUI } from "./ui.js";
+import { addTaskToUI, toggleTaskUI } from "./ui.js";
 
 const taskList = document.getElementById("taskList");
 const inputValue = document.getElementById("taskInput");
 
-// Working with the button
+document.addEventListener("DOMContentLoaded", () => {
+  taskList.addEventListener("click", (event) => {
+    if (event.target.tagName === "LI") {
+      console.log(event.target);
+      toggleTaskUI(event.target);
+    }
+  });
+});
+
+// Load tasks when the page loads
 document.getElementById("getTaskBtn").addEventListener("click", async () => {
   try {
     const tasks = await fetchTasksFromDB();
