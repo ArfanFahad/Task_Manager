@@ -16,13 +16,9 @@ export async function createTaskInDB(task_name) {
   try {
     const response = await fetch(base_url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ task_name: task_name }),
     });
-
-    console.log(response);
 
     if (!response.ok) {
       const errorData = await response.json();
