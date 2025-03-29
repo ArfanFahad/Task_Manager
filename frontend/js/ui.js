@@ -23,3 +23,8 @@ export function addTaskToUI(task) {
   // Append the list item to the task list
   taskList.appendChild(li);
 }
+
+//function for line-through effect
+export function toggleTaskUI(liElement) {
+  liElement.classList.toggle("completed");
+}
