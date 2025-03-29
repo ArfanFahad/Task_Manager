@@ -5,6 +5,8 @@ import { UAParser } from "ua-parser-js";
 import taskRoutes from "./routes/taskRoutes.js";
 // import userRoutes from "./routes/userRoutes.js";
 import { connectDB } from "./config/db.js";
+import router from "./routes/taskRoutes.js";
+import { toggleTaskStatus } from "./controllers/taskController.js";
 const app = express();
 
 dotenv.config();
@@ -36,6 +38,9 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/tasks", taskRoutes);
 // app.use("/api/users", userRoutes);
+
+// PATCH request to toggle status
+router.patch("/:id/toggle", toggleTaskStatus);
 
 //start server
 const PORT = process.env.PORT || 5000;
