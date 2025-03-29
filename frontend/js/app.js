@@ -3,14 +3,9 @@ import { fetchTasksFromDB, createTaskInDB } from "./api.js";
 import { addTaskToUI } from "./ui.js";
 
 const taskList = document.getElementById("taskList");
-let inputValue;
+const inputValue = document.getElementById("taskInput");
 
-// Waiting for DOM to load before assignment
-document.addEventListener("DOMContentLoaded", () => {
-  inputValue = document.getElementById("taskInput");
-});
-
-// Load tasks when the page loads
+// Working with the button
 document.getElementById("getTaskBtn").addEventListener("click", async () => {
   try {
     const tasks = await fetchTasksFromDB();
@@ -30,6 +25,7 @@ document.getElementById("addTaskBtn").addEventListener("click", async () => {
   const getValue = inputValue.value.trim();
   try {
     await createTaskInDB(getValue);
+    inputValue.value = "";
   } catch (error) {
     console.error("Error Passing Data: ", error);
   }
