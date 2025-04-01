@@ -3,7 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { UAParser } from "ua-parser-js";
 import taskRoutes from "./routes/taskRoutes.js";
-// import userRoutes from "./routes/userRoutes.js";
 import { connectDB } from "./config/db.js";
 import router from "./routes/taskRoutes.js";
 import { toggleTaskStatus } from "./controllers/taskController.js";
@@ -11,10 +10,14 @@ const app = express();
 
 dotenv.config();
 
-// middleware
+// Middleware for CORS (cross-origin requests)
 app.use(cors());
+
+// Middleware to parse JSON request bodies
 app.use(express.json());
-// middleware to log details
+
+// Logs detailed client information for each request
+// (Browser, OS, Device, IP and request details)
 app.use((req, res, next) => {
   const parser = new UAParser(req.headers["user-agent"]);
   const result = parser.getResult();
@@ -35,14 +38,19 @@ app.use((req, res, next) => {
   next();
 });
 
-//routes
+// ===================
+// API Routes Configuration
+// ===================
+// All task routes under /api/tasks namespace
+// ===================
 app.use("/api/tasks", taskRoutes);
-// app.use("/api/users", userRoutes);
 
-// PATCH request to toggle status
+// PATCH /api/tasks/:id/toggle
 router.patch("/:id/toggle", toggleTaskStatus);
 
-//start server
+// ===================
+// Server Initialization
+// ===================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   await connectDB();
