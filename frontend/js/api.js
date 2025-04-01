@@ -4,7 +4,7 @@ const base_url = "http://localhost:5000/api/tasks";
 export async function fetchTasksFromDB() {
   try {
     const response = await fetch(base_url);
-    return await response.json(); // it will parses the response body as JSON and returns a js object or array
+    return await response.json(); // Parses the response body as JSON and returns a js object or array
   } catch (error) {
     console.error("Error fetching tasks: ", error);
     return [];
@@ -38,5 +38,26 @@ export async function deleteTaskFromDB(taskId) {
     await fetch(`${base_url}/${taskId}`, { method: "DELETE" });
   } catch (error) {
     console.error("Error deleting task: ", error);
+  }
+}
+
+// Patch Request for updating task_status
+export async function toggleTaskStatus(taskId) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/tasks/${taskId}/toggle`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to update task status");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error toggling task: ", error);
   }
 }
