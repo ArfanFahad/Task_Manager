@@ -1,18 +1,9 @@
 // selecting elements
-import { fetchTasksFromDB, createTaskInDB } from "./api.js";
-import { addTaskToUI, toggleTaskUI } from "./ui.js";
+import { fetchTasksFromDB, createTaskInDB, toggleTaskStatus } from "./api.js";
+import { addTaskToUI } from "./ui.js";
 
 const taskList = document.getElementById("taskList");
 const inputValue = document.getElementById("taskInput");
-
-document.addEventListener("DOMContentLoaded", () => {
-  taskList.addEventListener("click", (event) => {
-    if (event.target.tagName === "LI") {
-      console.log(event.target);
-      toggleTaskUI(event.target);
-    }
-  });
-});
 
 // Load tasks when the page loads
 document.getElementById("getTaskBtn").addEventListener("click", async () => {
@@ -38,4 +29,18 @@ document.getElementById("addTaskBtn").addEventListener("click", async () => {
   } catch (error) {
     console.error("Error Passing Data: ", error);
   }
+});
+
+// Making task clickable and applying line-through on tasks
+document.addEventListener("DOMContentLoaded", () => {
+  taskList.addEventListener("click", async (event) => {
+    if (event.target.tagName === "LI") {
+      const taskId = event.target.dataset.id;
+      const updatedTask = await toggleTaskStatus(taskId);
+
+      if (updatedTask) {
+        event.target.classList.toggle("completed", updatedTask.task_status);
+      }
+    }
+  });
 });
