@@ -6,6 +6,17 @@ export function addTaskToUI(task) {
   li.textContent = task.task_name;
   li.dataset.id = task.id;
 
+  // Apply line-through if completed
+  if (task.task_status) {
+    li.classList.add("completed");
+  }
+
+  // Add Edit Button
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  editBtn.classList.add("edit-btn");
+  editBtn.dataset.id = task.id;
+
   // Add Delete Button
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
@@ -18,13 +29,10 @@ export function addTaskToUI(task) {
     }
   });
 
+  // Append the Edit button to the list item
+  li.appendChild(editBtn);
   // Append the Delete button to the list item
   li.appendChild(deleteBtn);
   // Append the list item to the task list
   taskList.appendChild(li);
-}
-
-//function for line-through effect
-export function toggleTaskUI(liElement) {
-  liElement.classList.toggle("completed");
 }
