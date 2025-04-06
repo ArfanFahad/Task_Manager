@@ -79,14 +79,40 @@ body {
   align-items: center;
   justify-content: space-between;
   background-color: rgba(16, 80, 133, 0.1);
+  gap: 10px;
   padding: 1.2rem;
   margin-bottom: 1.2rem;
 }
 
-#taskList li button {
-  background: red;
+.task-text {
+  flex-grow: 1;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+}
+
+.button-group button {
+  background-color: red;
   color: white;
   border: none;
   padding: 0.5rem 1.2rem;
   cursor: pointer;
+}
+
+/* Hover  */
+.button-group button.edit-btn {
+  background-color: #1f8feb;
+}
+
+.button-group button:hover {
+  opacity: 0.9;
+}
+
+/* edit input style */
+.edit-input {
+  flex-grow: 1;
+  padding: 0.4rem;
+  font-size: 1rem;
 }
