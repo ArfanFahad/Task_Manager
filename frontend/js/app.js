@@ -34,7 +34,7 @@ document.getElementById("addTaskBtn").addEventListener("click", async () => {
 // Making task clickable and applying line-through on tasks
 document.addEventListener("DOMContentLoaded", () => {
   taskList.addEventListener("click", async (event) => {
-    if (event.target.tagName === "LI") {
+    if (event.target.tagName === "SPAN") {
       const taskId = event.target.dataset.id;
       const updatedTask = await toggleTaskStatus(taskId);
 
