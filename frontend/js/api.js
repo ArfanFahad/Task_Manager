@@ -32,6 +32,21 @@ export async function createTaskInDB(task_name) {
   }
 }
 
+// Update task from database
+export async function updatedTaskInDB(taskId, newTaskName) {
+  const response = await fetch(`${base_url}/${taskId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ task_name: newTaskName }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update task");
+  }
+}
+
 // Delete task from database
 export async function deleteTaskFromDB(taskId) {
   try {
