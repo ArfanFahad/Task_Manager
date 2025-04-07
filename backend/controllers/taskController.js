@@ -43,6 +43,23 @@ export const createTask = async (req, res) => {
   }
 };
 
+// Controller to edit task
+export const editTask = async (req, res) => {
+  const { id } = req.params;
+  const { task_name } = req.body;
+
+  try {
+    await pool.query("UPDATE tasks SET task_name = $1 WHERE id = $2", [
+      task_name,
+      id,
+    ]);
+    res.json({ success: true, message: "Task Updated Successfully." });
+  } catch (error) {
+    console.error("Error updating task: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 // controller to delete a task
 export const removeTask = async (req, res) => {
   const { id } = req.params;
