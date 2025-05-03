@@ -48,3 +48,13 @@ Concurrent Plan:
 - Drag & drop task ordering
 - Dark mode
 - Mobile view optimization
+
+
+## Future Database Column That I have added 
+alter table users
+add column is_verified boolean default false, 
+add column verification_code text, 
+add column verification_expires timestamp, 
+add column reset_token text, 
+add column reset_token_expires timestamp,
+add column created_at timestamp default now(); 
