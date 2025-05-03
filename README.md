@@ -1,28 +1,29 @@
-# A Simple Overview of my App
+# 📝 Task Manager App
 
-1. User interacts with UI (click 'add task').
+A full-stack Task Manager web application that allows users to register, log in, and manage their personal task list. Built using **Node.js**, **Express**, **PostgreSQL**, and **Vanilla JavaScript**.
 
-2. Frontend (app.js) sends a request to the backend (e.g., POST /tasks).
+---
 
-3. Backend processes the request (checks, validates, saves to databases).
+## 🚀 Features
 
-4. Backend responds with data (e.g., newly added task).
+- 🔐 User authentication (Sign up, Login)
+- ✅ Add, Edit, Delete, Complete tasks
+- 🧠 Each user sees only their own tasks
+- 🌐 RESTful API structure
+- 🗃️ PostgreSQL relational database
 
-5. Frontend updates the UI to reflect the changes. 
+---
 
-Example API Calls: 
+## 🛠️ Technologies Used
 
-# GET /tasks - fetch all tasks from backend.
-# POST /tasks - add a new task.
-# PUT /tasks/:id - update a task. 
-# DELETE /tasks/:id - delete a task.
+**Frontend**
 
+- HTML, CSS, JavaScript (Vanilla)
 
+**Backend**
 
-
-# What app.js Will do? 
-1. Adding a new task - Taking user input 
-2. Display tasks - showing existing task from the backend. 
-3. Deleting a task - Removing a task when the user clicks the delete button. 
-4. Marking a task as completed - Striking through the text when clicked. 
-5. Renaming a task 
+- Node.js
+- Express.js
+- PostgreSQL
+- bcrypt (for password hashing)
+- JSON Web Tokens (for auth)
