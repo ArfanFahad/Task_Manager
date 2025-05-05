@@ -1,11 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { UAParser } from "ua-parser-js";
 import taskRoutes from "./routes/taskRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
 import router from "./routes/taskRoutes.js";
 import { toggleTaskStatus } from "./controllers/taskController.js";
+import { authenticateUser } from "./middleware/authMiddleware.js";
 const app = express();
 
 dotenv.config();
@@ -16,28 +17,6 @@ app.use(cors());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Logs detailed client information for each request
-// (Browser, OS, Device, IP and request details)
-app.use((req, res, next) => {
-  const parser = new UAParser(req.headers["user-agent"]);
-  const result = parser.getResult();
-
-  console.log("Incoming Request: ");
-  console.log(`IP Address: ${req.ip}`);
-  console.log(`Browser: ${result.browser.name} ${result.browser.version}`);
-  console.log(`Operating System: ${result.os.name} ${result.os.version}`);
-  console.log(`Device: ${result.device.type || "PC"}`);
-  console.log(`Model: ${result.device.model || "N/A"}`);
-  console.log(
-    `Request URL: ${req.url} | Method: ${
-      req.method
-    } | Time: ${new Date().toLocaleTimeString()}`
-  );
-  console.log(`---------`);
-
-  next();
-});
-
 // ===================
 // API Routes Configuration
 // ===================
@@ -45,8 +24,18 @@ app.use((req, res, next) => {
 // ===================
 app.use("/api/tasks", taskRoutes);
 
+// ===================
+// API Routes Configuration
+// ===================
+// All authentication routes under []
+// ===================
+app.use("/api/auth", authRoutes);
+
 // PATCH /api/tasks/:id/toggle
 router.patch("/:id/toggle", toggleTaskStatus);
+
+// Tasting Protected Route
+app.use("/api", authenticateUser);
 
 // ===================
 // Server Initialization
