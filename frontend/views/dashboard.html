@@ -1,1 +1,56 @@
-// Main page after login, shows tasks 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Task Manager</title>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h2>Task Manager</h2>
+        <nav>
+          <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Create Task</a></li>
+            <li><a href="#">All Tasks</a></li>
+            <li><a href="#">Completed</a></li>
+            <li><a href="#">Setting</a></li>
+            <li><button id="logoutBtn">Logout</button></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="main">
+        <!-- Header -->
+        <div class="header">
+          <h1>Welcome, <span id="username">User</span></h1>
+        </div>
+
+        <!-- Stats -->
+        <section class="stats">
+          <div class="stat-card">
+            Total Tasks: <span id="totalTasks">0</span>
+          </div>
+          <div class="stat-card">
+            Completed: <span id="completedTasks">0</span>
+          </div>
+          <div class="stat-card">Pending: <span id="pendingTasks">0</span></div>
+        </section>
+
+        <!-- Task List -->
+        <section class="tasks">
+          <h2>Your Tasks</h2>
+          <div id="taskList" class="task-list">
+            <!-- tasks will be injected here by js -->
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+  </body>
+</html>
