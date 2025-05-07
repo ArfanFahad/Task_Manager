@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+    <link rel="stylesheet" href="../css/signup.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Create Account</h2>
+      <form id="signup-form" class="form-card">
+        <input type="text" id="username" placeholder="Full Name" required />
+        <input type="email" id="email" placeholder="Email" required />
+
+        <div class="password-wrapper">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <span class="toggle-password" onclick="togglePassword('password')"
+            >👁</span
+          >
+        </div>
+
+        <div class="password-wrapper">
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="Confirm Password"
+            required
+          />
+          <span
+            class="toggle-password"
+            onclick="togglePassword('confirm-password')"
+            >👁</span
+          >
+        </div>
+
+        <button type="submit">Sign Up</button>
+        <p id="message"></p>
+        <p class="redirect">
+          Already have an account?<a href="/frontend/views/login.html"
+            >Log in</a
+          >
+        </p>
+      </form>
+    </div>
+
+    <script>
+      function togglePassword(id) {
+        const field = document.getElementById(id);
+        field.type = field.type === "password" ? "text" : "password";
+      }
+    </script>
+
+    <script src="../js/auth.js"></script>
+  </body>
+</html>
