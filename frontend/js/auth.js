@@ -1,15 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const registerForm = document.getElementById("register-form");
+  const signupForm = document.getElementById("signup-form");
   const loginFrom = document.getElementById("login-form");
 
-  if (registerForm) {
-    registerForm.addEventListener("submit", async (e) => {
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const username = document.getElementById("username").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
       const message = document.getElementById("message");
+
+      if (password !== confirmPassword) {
+        return (message.textContent = "Password is not matching");
+      }
 
       try {
         const res = await fetch("http://localhost:5000/api/auth/register", {
@@ -21,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const data = await res.json();
-        console.log(data);
 
         if (res.ok) {
           localStorage.setItem("verifyEmail", email);
