@@ -1,13 +1,10 @@
-/* 
-  Need to add rate limiting 
-*/
 import {
   createUser,
   getUserByEmail,
   markUserAsVerified,
 } from "../models/userModel.js";
 import { hashPassword } from "../utils/hash.js";
-import { genereateVerificationCode } from "../utils/generateCode.js";
+import { generateVerificationCode } from "../utils/generateCode.js";
 import { sendVerificationEmail } from "../utils/sendEmail.js";
 
 export const registerUser = async (req, res) => {
@@ -18,11 +15,18 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    // Check if email is already registered
+    const existingUser = await getUserByEmail(email);
+
+    if (existingUser) {
+      return res.status(409).json({ message: "Email Already Exist." });
+    }
+
     // Password hashing
     const hashPass = await hashPassword(password);
 
     // Generating verification code
-    const code = genereateVerificationCode();
+    const code = generateVerificationCode();
 
     // Dynamically sending code to email
     await sendVerificationEmail(email, code);
@@ -30,14 +34,12 @@ export const registerUser = async (req, res) => {
     // Verification code expiration time
     const vExp = new Date(Date.now() + 20 * 60 * 1000);
 
-    try {
-      const user = await createUser(username, email, hashPass, code, vExp);
-      res.status(201).json({ message: "User Registered Successfully.", user });
-    } catch (error) {
-      console.error("Error: ", error.message);
-    }
+    const newUser = await createUser(username, email, hashPass, code, vExp);
+    return res
+      .status(201)
+      .json({ message: "User Registered Successfully.", newUser });
   } catch (error) {
-    console.error("Error: ", error.message);
+    console.error("Error registering user: ", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
