@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const loginFrom = document.getElementById("login-form");
+  const logoutButton = document.getElementById("logoutBtn");
 
   if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value;
 
       try {
-        const res = await fetch("http://localhost:5000/", {
+        const res = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -56,16 +57,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const data = await res.json();
-        console.log(data);
 
         if (res.ok) {
-          window.location.href = "../views/dashboard.html";
+          // localStorage.setItem("Bearer", )
+          window.location.href = "/frontend/views/dashboard.html";
         } else {
           message.textContent = data.message || "Something went wrong.";
         }
       } catch (error) {
         message.textContent = "Network error.";
       }
+    });
+  }
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", function () {
+      localStorage.removeItem("token");
+      window.location.href = "/frontend/views/login.html";
     });
   }
 });
