@@ -25,7 +25,6 @@ export const createUser = async (
          RETURNING *`,
     [username, email, hashedPassword, verificationCode, verificationExpires]
   );
-  // return result.rows[0];
   return result.rows[0];
 };
 
