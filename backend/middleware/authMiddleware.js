@@ -1,30 +1,29 @@
 // Checks JWT, adds req.user
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import { fileURLToPath } from "url";
-import path from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// console.log(__filename);
-// console.log(__dirname);
-
-dotenv.config({
-  path: path.resolve(__dirname, "../../.env"),
-});
+import jwt, { decode } from "jsonwebtoken";
+import { config } from "../config/config.js";
 
 export const authenticateUser = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) {
-    return res.status(401).json({ message: "Access denied." });
+  // Extract authorization header
+  const authHeader = req.headers.authorization;
+
+  // Checking if header exists and follows Bearer scheme
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Not authorized, token missing" });
   }
 
+  // Extract token from header
+  const token = authHeader.split(" ")[1];
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Verify token and decode payload
+    const decoded = jwt.verify(token, config.JWT_SECRET);
+
+    // Attach user data to request object
     req.user = decoded;
+
     next();
   } catch (error) {
-    res.status(403).json({ message: "Invalid token" });
+    // Handling invalid/exppired token
+    return res.status(401).json({ message: "Invalid token" });
   }
 };
