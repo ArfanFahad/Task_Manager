@@ -7,14 +7,21 @@
     /api/auth
 */
 import { createUser } from "../models/userModel.js";
-import { registerUser, verifyUser } from "../controllers/authController.js";
+import {
+  registerUser,
+  verifyUser,
+  loginUser,
+} from "../controllers/authController.js";
 import express from "express";
 const router = express.Router();
 
-// Creating User
-router.post("/register", registerUser, createUser);
+// User Registration
+router.post("/register", registerUser);
 
-// User Verification With Code
+// User Verification what With Code
 router.post("/verify", verifyUser);
+
+// User Login
+router.post("/login", loginUser);
 
 export default router;
