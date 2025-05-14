@@ -26,7 +26,7 @@ export const createUser = async (
     [username, email, hashedPassword, verificationCode, verificationExpires]
   );
   // return result.rows[0];
-  return console.log(result.rows[0]);
+  return result.rows[0];
 };
 
 // 3. Mark user as verified
