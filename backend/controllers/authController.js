@@ -3,9 +3,11 @@ import {
   getUserByEmail,
   markUserAsVerified,
 } from "../models/userModel.js";
+import { generateToken } from "../utils/jwtService.js";
 import { hashPassword } from "../utils/hash.js";
 import { generateVerificationCode } from "../utils/generateCode.js";
 import { sendVerificationEmail } from "../utils/sendEmail.js";
+import bcrypt from "bcryptjs";
 
 export const registerUser = async (req, res) => {
   try {
@@ -75,4 +77,35 @@ export const verifyUser = async (req, res) => {
   // 5. In is_verified column in DB, marks as "true"
   await markUserAsVerified(email);
   res.json({ message: "Email verified successfully" });
+};
+
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find user by email in database
+    const user = await getUserByEmail(email);
+
+    // If user doesn't exist, return 401 unauthorized
+    if (!user) {
+      return res.status(401).json({ message: "user not found" });
+    }
+
+    // Compare provided password with hashed password in database
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    // If passwords don't match, return 401 unauthorized
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    // Generating JWT token for authenticated user
+    const token = generateToken({ id: user.id });
+
+    // Returning success response with the generated token
+    return res.status(200).json({ token });
+  } catch (error) {
+    // Handle any errors during the login process
+    res.status(500).json({ message: "Login failed", error: error.message });
+  }
 };
