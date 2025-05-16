@@ -13,24 +13,48 @@
         <h2>Task Manager</h2>
         <nav>
           <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Create Task</a></li>
-            <li><a href="#">All Tasks</a></li>
-            <li><a href="#">Completed</a></li>
-            <li><a href="#">Setting</a></li>
-            <li><button id="logoutBtn">Logout</button></li>
+            <li>
+              <button onclick="showContent('dashboard')">Dashboard</button>
+            </li>
+            <li>
+              <button onclick="showContent('createTask')">Create Task</button>
+            </li>
+            <li>
+              <button onclick="showContent('allTasks')" id="getTaskBtn">
+                All Tasks
+              </button>
+            </li>
+            <li>
+              <button onclick="showContent('completed')">Completed</button>
+            </li>
+            <li>
+              <button onclick="showContent('pending')">Pending</button>
+            </li>
+            <li>
+              <button onclick="showContent('setting')">Setting</button>
+            </li>
+            <li>
+              <button id="logoutBtn">Logout</button>
+            </li>
           </ul>
         </nav>
       </aside>
 
       <!-- Main Content -->
-      <div class="main">
-        <!-- Header -->
-        <div class="header">
-          <h1>Welcome, <span id="username">User</span></h1>
-        </div>
+      <div class="main" id="content-area"></div>
 
-        <!-- Stats -->
+      <!-- templates -->
+      <template id="dashboard-template">
+        <!-- Date & Time & Weather Feature -->
+        <section class="dashboard-top-bar">
+          <div class="date-time-placeholder">
+            ⌚ Date & Time: <span id="dateTime">Loading...</span>
+          </div>
+          <div class="weather-placeholder">
+            ☁ Weather: <span id="weatherInfo">Fetching Weather...</span>
+          </div>
+        </section>
+        <!-- Stat Section -->
         <section class="stats">
           <div class="stat-card">
             Total Tasks: <span id="totalTasks">0</span>
@@ -40,17 +64,52 @@
           </div>
           <div class="stat-card">Pending: <span id="pendingTasks">0</span></div>
         </section>
+      </template>
 
-        <!-- Task List -->
-        <section class="tasks">
-          <h2>Your Tasks</h2>
-          <div id="taskList" class="task-list">
-            <!-- tasks will be injected here by js -->
+      <template id="createTask-template">
+        <section class="create-task-section">
+          <h2>Create Task</h2>
+          <div class="task-form-wrapper">
+            <!-- Left: Task Input -->
+            <div id="task-input-section">
+              <input type="text" id="taskInput" placeholder="Enter a task" />
+              <button id="addTaskBtn">Add Task</button>
+            </div>
+
+            <!-- Right: Recent Pending -->
+            <div class="recent-pending">
+              <h3>Recent Pending Tasks</h3>
+              <ul id="recentPendingTasks">
+                <li>Demo</li>
+                <li>Demo 2</li>
+              </ul>
+            </div>
           </div>
         </section>
-      </div>
+      </template>
+
+      <template id="allTasks-template">
+        <h2>All Task</h2>
+        <ul id="taskList"></ul>
+      </template>
+
+      <template id="completed-template">
+        <h2>Completed Template</h2>
+        <p>This is completed Template</p>
+      </template>
+
+      <template id="pending-template">
+        <h2>Pending Template</h2>
+        <p>This is pending Template</p>
+      </template>
+
+      <template id="setting-template">
+        <h2>This is setting template</h2>
+        <p>This is setting template</p>
+      </template>
     </div>
 
-    <script src="../js/dashboard.js"></script>
+    <script type="module" src="../js/dashboard.js"></script>
+    <script type="module" src="../js/app.js"></script>
   </body>
 </html>
