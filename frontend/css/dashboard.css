@@ -6,7 +6,7 @@
 
 body {
   font-family: sans-serif;
-  background: #f4f6f9;
+  background: #00000018;
   color: #333;
 }
 
@@ -62,6 +62,24 @@ body {
   margin-bottom: 2rem;
 }
 
+/* Date, time, weather */
+.dashboard-top-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.date-time-placeholder,
+.weather-placeholder {
+  background: #f4f4f4;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Stats  */
 .stats {
   display: flex;
@@ -75,18 +93,6 @@ body {
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Tasks */
-.tasks {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.task-list {
-  margin-top: 1rem;
 }
 
 /* Responsive */
@@ -107,3 +113,85 @@ body {
     gap: 1rem;
   }
 }
+
+/* All Tasks Style Starts */
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-text {
+  flex-grow: 1;
+}
+
+#taskList {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+#taskList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(16, 80, 133, 0.1);
+  padding: 1.2rem;
+  gap: 10px;
+  margin-bottom: 1.2rem;
+}
+
+/* Task Input Style */
+.create-task-section {
+  padding: 20px;
+}
+
+.task-form-wrapper {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 1.2rem;
+}
+
+#task-input-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#taskInput {
+  padding: 1rem;
+  font-size: 16px;
+}
+
+#addTaskBtn {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.recent-pending {
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 1.2rem;
+  border-radius: 8px;
+}
+
+.recent-pending h3 {
+  margin-top: 0;
+}
+
+.recent-pending ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.recent-pending li::before {
+  content: "📝 ";
+  margin-right: 5px;
+}
+
+/* All Tasks Style End */
