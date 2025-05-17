@@ -1,5 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+async function landingPageLoader() {
   const landingContainer = document.querySelector(".landing-container");
+
+  // Landing Container
   if (landingContainer) {
     const signBtn = document.getElementById("signupBtn");
     const loginBtn = document.getElementById("loginBtn");
@@ -14,4 +16,23 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-});
+
+  async function loadTaskSummary() {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/tasks/getSummary`
+      );
+      const data = await response.json();
+
+      document.getElementById("totalTasks").textContent = data.total;
+      document.getElementById("completedTasks").textContent = data.completed;
+      document.getElementById("incompleteTasks").textContent = data.incomplete;
+    } catch (error) {
+      console.error("Error Fetching Data: ", error.message);
+    }
+  }
+
+  loadTaskSummary();
+}
+
+landingPageLoader();
