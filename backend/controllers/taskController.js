@@ -105,3 +105,25 @@ export const toggleTaskStatus = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// Getting Task Summary for Landing Page
+export const getTaskSummary = async (req, res) => {
+  try {
+    const totalQuery = await pool.query(`SELECT COUNT(*) FROM tasks`);
+    const completedQuery = await pool.query(
+      `SELECT COUNT(*) FROM tasks WHERE task_status = true`
+    );
+    const incompleteQuery = await pool.query(
+      `SELECT COUNT(*) FROM tasks WHERE task_status = false`
+    );
+
+    res.json({
+      total: parseInt(totalQuery.rows[0].count),
+      completed: parseInt(completedQuery.rows[0].count),
+      incomplete: parseInt(incompleteQuery.rows[0].count),
+    });
+  } catch (error) {
+    console.error("Error getting task summary: ", error);
+    res.status(500).json({ error: "Failed to fetch task summary" });
+  }
+};
