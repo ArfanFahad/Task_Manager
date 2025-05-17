@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await res.json();
 
         if (res.ok) {
-          // localStorage.setItem("Bearer", )
+          localStorage.setItem("token", data.token);
           window.location.href = "/frontend/views/dashboard.html";
         } else {
           message.textContent = data.message || "Something went wrong.";
@@ -67,13 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         message.textContent = "Network error.";
       }
-    });
-  }
-
-  if (logoutButton) {
-    logoutButton.addEventListener("click", function () {
-      localStorage.removeItem("token");
-      window.location.href = "/frontend/views/login.html";
     });
   }
 });
