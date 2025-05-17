@@ -5,8 +5,9 @@
 }
 
 body {
-  background: #f0f2f5;
-  color: #333;
+  /* background: #f0f2f5; */
+  background: linear-gradient(to right, #403a3e, #be5869);
+  color: #f0f0f0;
 }
 
 .landing-container {
@@ -52,6 +53,7 @@ body {
   padding: 0.8rem 2.5rem;
   background: #4f46e5;
   color: white;
+  font-size: large;
   border: none;
   border-radius: 8px;
   cursor: pointer;
