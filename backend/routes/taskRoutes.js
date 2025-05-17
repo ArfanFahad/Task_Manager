@@ -5,13 +5,16 @@ import {
   createTask,
   removeTask,
   editTask,
+  getTaskSummary,
 } from "../controllers/taskController.js";
 import { authenticateUser } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 //Route to get all tasks
-// router.get("/", getTasks);
+router.get("/", getTasks);
+
+router.get("/getSummary", getTaskSummary);
 
 // Route to create a task
 // router.post("/", createTask);
