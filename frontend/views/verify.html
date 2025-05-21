@@ -21,39 +21,11 @@
         />
         <button type="submit">Verify</button>
       </form>
-      <div class="resend" onclick="resendCode()">Resend Code</div>
+      <p>Time Remaining: <span id="timer">10</span> seconds</p>
+      <p id="status"></p>
+      <button id="resendBtn" disabled>Resend Code</button>
     </div>
 
-    <script>
-      const form = document.getElementById("verifyForm");
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const code = document.getElementById("vCode").value;
-        const email = localStorage.getItem("verifyEmail");
-
-        // Sending the code to server for matching with db code
-        const response = await fetch("http://localhost:5000/api/auth/verify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, code }),
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-          alert("Verification Successfull");
-          window.location.href = "../views/login.html";
-        } else {
-          alert("Verification Failed: ", +result.message);
-        }
-      });
-
-      function resendCode() {
-        // Calling the backend to resend code
-        fetch("/api/resend-code", { method: "POST" })
-          .then((res) => res.json())
-          .then((data) => alert(data.message))
-          .catch(() => alert("Failed to resend code."));
-      }
-    </script>
+    <script type="module" src="../js/verify.js"></script>
   </body>
 </html>
