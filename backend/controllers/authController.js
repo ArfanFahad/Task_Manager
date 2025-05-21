@@ -109,3 +109,22 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: "Login failed", error: error.message });
   }
 };
+
+export const resendCode = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const isExist = await getUserByEmail(email);
+
+    if (!isExist) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const code = generateVerificationCode();
+
+    await sendVerificationEmail(email, code);
+  } catch (error) {
+    console.error("Error Resending Code: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
