@@ -13,11 +13,11 @@ export const getAllTasks = async () => {
 };
 
 // create new task
-export const insertDataInDB = async (task_name) => {
+export const insertDataInDB = async (task_name, userId) => {
   try {
     const result = await pool.query(
-      "INSERT INTO tasks (task_name) VALUES ($1) RETURNING *",
-      [task_name]
+      "INSERT INTO tasks (task_name, user_id) VALUES ($1, $2) RETURNING *",
+      [task_name, userId]
     );
     return result.rows[0];
   } catch (error) {
