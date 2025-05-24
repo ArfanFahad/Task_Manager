@@ -17,13 +17,13 @@ router.get("/", getTasks);
 router.get("/getSummary", getTaskSummary);
 
 // Route to create a task
-// router.post("/", createTask);
+router.post("/", authenticateUser, createTask);
 
 // Route to update a task
-// router.put("/:id", editTask);
+router.put("/:id", editTask);
 
 // Route to delete a task
-// router.delete("/:id", removeTask);
+router.delete("/:id", removeTask);
 
 // Authentication Route
 router.get("/", authenticateUser, getTasks);
