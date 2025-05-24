@@ -1,5 +1,5 @@
 // Checks JWT, adds req.user
-import jwt, { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { config } from "../config/config.js";
 
 export const authenticateUser = (req, res, next) => {
@@ -23,7 +23,7 @@ export const authenticateUser = (req, res, next) => {
 
     next();
   } catch (error) {
-    // Handling invalid/exppired token
-    return res.status(401).json({ message: "Invalid token" });
+    console.error("JWT Verification Failed: ", error.message);
+    return res.status(401).json({ message: "Not authorized, token invalid" });
   }
 };
