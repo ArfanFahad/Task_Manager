@@ -2,11 +2,38 @@
 import { fetchTasksFromDB, createTaskInDB, toggleTaskStatus } from "./api.js";
 import { addTaskToUI } from "./ui.js";
 import { showContent } from "./dashboard.js";
-import { ensureAuthenticated } from "./dashboard.js";
+// import { ensureAuthenticated } from "./dashboard.js";
 showContent("dashboard"); // Default Loading Section
 
-const taskList = document.getElementById("taskList");
-// const inputValue = document.getElementById("taskInput");
+function renderView() {
+  const template = document.getElementById("createTask-template");
+  const clone = template.content.cloneNode(true);
+
+  const container = document.getElementById("content-area");
+  container.innerHTML = "";
+  container.appendChild(clone);
+
+  attachAddTaskHandler();
+}
+
+function attachAddTaskHandler() {
+  const addTaskBtn = document.getElementById("addTaskBtn");
+  const input = document.getElementById("taskInput");
+
+  if (addTaskBtn && input) {
+    addTaskBtn.addEventListener("click", async () => {
+      const taskName = input.value.trim();
+      if (taskName) {
+        try {
+          await createTaskInDB(taskName);
+          input.value = "";
+        } catch (error) {
+          console.error("Error creating task: ", error);
+        }
+      }
+    });
+  }
+}
 
 // Load tasks when the page loads
 document.getElementById("getTaskBtn").addEventListener("click", async () => {
@@ -21,17 +48,6 @@ document.getElementById("getTaskBtn").addEventListener("click", async () => {
   }
 });
 
-// Event for taking the value
-// document.getElementById("addTaskBtn").addEventListener("click", async () => {
-//   const getValue = inputValue.value.trim();
-//   try {
-//     await createTaskInDB(getValue);
-//     inputValue.value = "";
-//   } catch (error) {
-//     console.error("Error Passing Data: ", error);
-//   }
-// });
-
 // Making task clickable and applying line-through on tasks
 // document.addEventListener("DOMContentLoaded", () => {
 //   taskList.addEventListener("click", async (event) => {
@@ -45,3 +61,5 @@ document.getElementById("getTaskBtn").addEventListener("click", async () => {
 //     }
 //   });
 // });
+
+document.addEventListener("DOMContentLoaded", renderView);
