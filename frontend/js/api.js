@@ -1,4 +1,5 @@
 const base_url = "http://localhost:5000/api/tasks";
+const token = localStorage.getItem("token");
 
 // Fetch tasks from database
 export async function fetchTasksFromDB() {
@@ -16,7 +17,10 @@ export async function createTaskInDB(task_name) {
   try {
     const response = await fetch(base_url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ task_name: task_name }),
     });
 
