@@ -3,6 +3,7 @@ import {
   getUserByEmail,
   markUserAsVerified,
 } from "../models/userModel.js";
+import { replaceVerificationCode } from "../models/authModel.js";
 import { generateToken } from "../utils/jwtService.js";
 import { hashPassword } from "../utils/hash.js";
 import { generateVerificationCode } from "../utils/generateCode.js";
@@ -34,7 +35,7 @@ export const registerUser = async (req, res) => {
     await sendVerificationEmail(email, code);
 
     // Verification code expiration time
-    const vExp = new Date(Date.now() + 20 * 60 * 1000);
+    const vExp = new Date(Date.now() + 1 * 60 * 1000);
 
     const newUser = await createUser(username, email, hashPass, code, vExp);
     return res
@@ -114,15 +115,23 @@ export const resendCode = async (req, res) => {
   try {
     const { email } = req.body;
 
+    // checking if user exists
     const isExist = await getUserByEmail(email);
-
     if (!isExist) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // generate new verification code
     const code = generateVerificationCode();
 
+    // replace old code in DB
+    await replaceVerificationCode(email, code);
+
+    // send the code to the email
     await sendVerificationEmail(email, code);
+
+    // respond
+    res.status(200).json({ message: "Verification Code Resent" });
   } catch (error) {
     console.error("Error Resending Code: ", error.message);
     res.status(500).json({ error: "Internal Server Error" });
