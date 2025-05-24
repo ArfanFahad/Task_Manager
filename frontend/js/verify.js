@@ -6,7 +6,7 @@ const statusMessage = document.getElementById("status");
 const resendBtn = document.getElementById("resendBtn");
 
 function startTimer() {
-  timeLeft = 3;
+  timeLeft = 60;
   clearInterval(countdown);
   timerDisplay.textContent = timeLeft;
   statusMessage.textContent = "Waiting for Code ...";
