@@ -161,6 +161,13 @@ body {
 #taskInput {
   padding: 1rem;
   font-size: 16px;
+  border: 1px solid #2f3542;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+}
+
+#taskInput:focus {
+  outline: none;
 }
 
 #addTaskBtn {
@@ -171,6 +178,12 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  transition-duration: 0.4s;
+}
+
+#addTaskBtn:hover {
+  background: #449c47;
+  transition-duration: 0.4s;
 }
 
 .recent-pending {
