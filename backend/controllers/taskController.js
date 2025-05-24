@@ -20,6 +20,7 @@ export const getTasks = async (req, res) => {
 export const createTask = async (req, res) => {
   try {
     const { task_name } = req.body;
+    const userId = req.user.id;
 
     // Input Validation
     if (!task_name || typeof task_name != "string") {
@@ -29,17 +30,20 @@ export const createTask = async (req, res) => {
     }
 
     // Insert into DB
-    const insertableDate = await insertDataInDB(task_name);
+    const insertableDate = await insertDataInDB(task_name, userId);
 
     // Return the created task with 201 status
     res.status(201).json({
       success: true,
-      messsage: "Task created successfully",
+      message: "Task created successfully",
       task: insertableDate,
     });
   } catch (error) {
     console.error("Error Sending Data: ", error);
-    throw error;
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 };
 
