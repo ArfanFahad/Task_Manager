@@ -2,9 +2,12 @@
 import pool from "../config/db.js";
 
 // get all tasks
-export const getAllTasks = async () => {
+export const getAllTasks = async (userId) => {
   try {
-    const result = await pool.query("SELECT * FROM tasks ORDER BY id DESC");
+    const result = await pool.query(
+      "SELECT * FROM tasks WHERE user_id = $1 ORDER BY id DESC",
+      [userId]
+    );
     return result.rows;
   } catch (error) {
     console.error("Error fetching tasks: ", error);
