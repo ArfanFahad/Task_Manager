@@ -8,7 +8,8 @@ import {
 //  controller to fetch all tasks
 export const getTasks = async (req, res) => {
   try {
-    const tasks = await getAllTasks();
+    const userId = req.user.id;
+    const tasks = await getAllTasks(userId);
     res.json(tasks);
   } catch (error) {
     console.error("Error fetching tasks: ", error);
