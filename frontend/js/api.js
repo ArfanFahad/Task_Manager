@@ -4,7 +4,19 @@ const token = localStorage.getItem("token");
 // Fetch tasks from database
 export async function fetchTasksFromDB() {
   try {
-    const response = await fetch(base_url);
+    const response = await fetch(base_url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to fetch Task");
+    }
+
     return await response.json(); // Parses the response body as JSON and returns a js object or array
   } catch (error) {
     console.error("Error fetching tasks: ", error);
