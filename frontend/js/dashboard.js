@@ -6,7 +6,7 @@ export function ensureAuthenticated() {
   const token = localStorage.getItem("token");
 
   if (!token) {
-    alert("Session expired. Please lgoin again.");
+    alert("Session expired. Please login again.");
     window.location.replace("/frontend/views/login.html");
   }
 }
