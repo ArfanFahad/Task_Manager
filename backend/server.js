@@ -20,9 +20,16 @@ app.use(express.json());
 // ===================
 // API Routes Configuration
 // ===================
+// All tasks for data for landingpage
+// ===================
+app.use("/tasks", taskRoutes);
+
+// ===================
+// API Routes Configuration
+// ===================
 // All task routes under /api/tasks namespace
 // ===================
-app.use("/api/tasks", taskRoutes);
+app.use("/api/tasks", authenticateUser, taskRoutes);
 
 // ===================
 // API Routes Configuration
