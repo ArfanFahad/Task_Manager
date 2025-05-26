@@ -25,7 +25,4 @@ router.put("/:id", editTask);
 // Route to delete a task
 router.delete("/:id", removeTask);
 
-// Authentication Route
-router.get("/", authenticateUser, getTasks);
-
 export default router;
