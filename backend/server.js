@@ -18,9 +18,10 @@ app.use(cors());
 app.use(express.json());
 
 // ===================
-// API Routes Configuration
+// API Routes Configuration, API With No Middleware
 // ===================
 // All tasks for data for landingpage
+// API /tasks/getSummary
 // ===================
 app.use("/tasks", taskRoutes);
 
@@ -28,8 +29,9 @@ app.use("/tasks", taskRoutes);
 // API Routes Configuration
 // ===================
 // All task routes under /api/tasks namespace
+// API With Middleware / GET
 // ===================
-app.use("/api/tasks", authenticateUser, taskRoutes);
+app.use("/api/tasks", taskRoutes);
 
 // ===================
 // API Routes Configuration
