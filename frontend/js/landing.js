@@ -19,9 +19,7 @@ async function landingPageLoader() {
 
   async function loadTaskSummary() {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/tasks/getSummary`
-      );
+      const response = await fetch(`http://localhost:5000/tasks/getSummary`);
       const data = await response.json();
 
       document.getElementById("totalTasks").textContent = data.total;
