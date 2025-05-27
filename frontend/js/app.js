@@ -5,6 +5,10 @@ import { showContent } from "./dashboard.js";
 // import { ensureAuthenticated } from "./dashboard.js";
 showContent("dashboard"); // Default Loading Section
 
+document.addEventListener("DOMContentLoaded", function () {
+  renderView();
+});
+
 function renderView() {
   const template = document.getElementById("createTask-template");
   const clone = template.content.cloneNode(true);
@@ -13,7 +17,12 @@ function renderView() {
   container.innerHTML = "";
   container.appendChild(clone);
 
-  attachAddTaskHandler();
+  try {
+    attachAddTaskHandler(); // Function Call
+    GettingTask(); // Function Call
+  } catch (error) {
+    console.error("Error: ", error.message);
+  }
 }
 
 function attachAddTaskHandler() {
@@ -22,6 +31,7 @@ function attachAddTaskHandler() {
 
   if (addTaskBtn && input) {
     addTaskBtn.addEventListener("click", async () => {
+      console.log("Add Button clicked");
       const taskName = input.value.trim();
       if (taskName) {
         try {
@@ -35,18 +45,23 @@ function attachAddTaskHandler() {
   }
 }
 
-// Load tasks when the page loads
-document.getElementById("getTaskBtn").addEventListener("click", async () => {
-  try {
-    const tasks = await fetchTasksFromDB();
-
-    tasks.forEach((task) => {
-      addTaskToUI(task);
-    });
-  } catch (error) {
-    console.error("Error fetching tasks: ", error);
+function GettingTask() {
+  // Load tasks when the page loads
+  const getTaskBtn = document.getElementById("getTaskBtn");
+  if (!getTaskBtn) {
+    console.warn("getTaskBtn not found");
+    return;
   }
-});
+  getTaskBtn.addEventListener("click", async () => {
+    try {
+      await fetchTasksFromDB().then((tasks) => {
+        tasks.forEach((task) => addTaskToUI(task));
+      });
+    } catch (error) {
+      console.error("Error fetching tasks: ", error.message);
+    }
+  });
+}
 
 // Making task clickable and applying line-through on tasks
 // document.addEventListener("DOMContentLoaded", () => {
@@ -61,5 +76,3 @@ document.getElementById("getTaskBtn").addEventListener("click", async () => {
 //     }
 //   });
 // });
-
-document.addEventListener("DOMContentLoaded", renderView);
