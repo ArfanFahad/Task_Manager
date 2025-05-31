@@ -4,34 +4,22 @@ import { addTaskToUI } from "./ui.js";
 import { showContent } from "./dashboard.js";
 // import { ensureAuthenticated } from "./dashboard.js";
 showContent("dashboard"); // Default Loading Section
+renderView();
 
-document.addEventListener("DOMContentLoaded", function () {
-  renderView();
-});
-
-function renderView() {
-  const template = document.getElementById("createTask-template");
-  const clone = template.content.cloneNode(true);
-
-  const container = document.getElementById("content-area");
-  container.innerHTML = "";
-  container.appendChild(clone);
-
+export function renderView() {
   try {
-    attachAddTaskHandler(); // Function Call
     GettingTask(); // Function Call
   } catch (error) {
     console.error("Error: ", error.message);
   }
 }
 
-function attachAddTaskHandler() {
+export function attachAddTaskHandler() {
   const addTaskBtn = document.getElementById("addTaskBtn");
   const input = document.getElementById("taskInput");
 
   if (addTaskBtn && input) {
     addTaskBtn.addEventListener("click", async () => {
-      console.log("Add Button clicked");
       const taskName = input.value.trim();
       if (taskName) {
         try {
@@ -42,6 +30,8 @@ function attachAddTaskHandler() {
         }
       }
     });
+  } else {
+    console.warn("Add task button or input not found");
   }
 }
 
@@ -54,9 +44,8 @@ function GettingTask() {
   }
   getTaskBtn.addEventListener("click", async () => {
     try {
-      await fetchTasksFromDB().then((tasks) => {
-        tasks.forEach((task) => addTaskToUI(task));
-      });
+      const tasks = await fetchTasksFromDB();
+      tasks.forEach(addTaskToUI);
     } catch (error) {
       console.error("Error fetching tasks: ", error.message);
     }
@@ -75,4 +64,8 @@ function GettingTask() {
 //       }
 //     }
 //   });
+// });
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   renderView();
 // });
