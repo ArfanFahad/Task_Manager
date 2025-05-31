@@ -1,5 +1,6 @@
 import { startClock } from "./time.js";
 import { loadWeather } from "./weather.js";
+import { renderView, attachAddTaskHandler } from "./app.js";
 
 // Function that will check token
 export function ensureAuthenticated() {
@@ -15,19 +16,26 @@ export function ensureAuthenticated() {
 export function showContent(parameter) {
   const template = document.getElementById(`${parameter}-template`);
   const contentArea = document.getElementById("content-area");
-  ensureAuthenticated(); // Checking Token for Every Request
+  contentArea.innerHTML = "";
+
+  ensureAuthenticated();
 
   if (template) {
-    contentArea.innerHTML = "";
-    const clone = template.content.cloneNode(true);
-    contentArea.appendChild(clone);
+    contentArea.appendChild(template.content.cloneNode(true));
 
-    // Loading Weather
-    if (parameter === "dashboard") {
-      loadWeather();
+    switch (parameter) {
+      case "dashboard":
+        loadWeather();
+        break;
+      case "createTask":
+        attachAddTaskHandler();
+        break;
+      case "allTasks":
+        renderView();
+        break;
     }
   } else {
-    contentArea.innerHTML = "<p>Section is not found.</p>";
+    contentArea.innerHTML = "<p>Section not found</p>";
   }
 }
 
@@ -37,7 +45,6 @@ startClock();
 // Logout Functionality
 document.getElementById("logoutBtn").addEventListener("click", function (e) {
   e.preventDefault();
-
   localStorage.clear();
   window.location.replace("/frontend/views/login.html");
 });
