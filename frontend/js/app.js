@@ -6,6 +6,8 @@ import { showContent } from "./dashboard.js";
 showContent("dashboard"); // Default Loading Section
 renderView();
 
+const taskList = document.getElementById("taskList");
+
 export function renderView() {
   try {
     GettingTask(); // Function Call
@@ -37,13 +39,24 @@ export function attachAddTaskHandler() {
 
 function GettingTask() {
   // Load tasks when the page loads
-  const getTaskBtn = document.getElementById("getTaskBtn");
-  if (!getTaskBtn) {
+
+  const oldBtn = document.getElementById("getTaskBtn");
+  if (!oldBtn) {
     console.warn("getTaskBtn not found");
     return;
   }
-  getTaskBtn.addEventListener("click", async () => {
+
+  const newBtn = oldBtn.cloneNode(true);
+  oldBtn.replaceWith(newBtn);
+
+  newBtn.addEventListener("click", async () => {
     try {
+      // const taskList = document.getElementById("taskList");
+
+      if (taskList) {
+        taskList.innerHTML = "";
+      }
+
       const tasks = await fetchTasksFromDB();
       tasks.forEach(addTaskToUI);
     } catch (error) {
