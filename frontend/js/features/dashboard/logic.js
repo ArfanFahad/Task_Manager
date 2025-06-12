@@ -1,22 +1,11 @@
-//dashboard.js
+// Dashboard Logic
+import { loadWeather } from "../../weather.js";
+import { renderView, attachAddTaskHandler } from "../../app.js";
+import { getToken, clearSession } from "../../core/storage.js";
 
-/*
-
-import { attachAddTaskHandler } from "./features/createTask/ui.js";
-import { showContent } from "./features/dashboard/logic.js";
-import { initDashboardUI } from "./features/dashboard/ui.js";
-window.showContent = showContent;
-initDashboardUI();
-
-*/
-
-import { startClock } from "./time.js";
-import { loadWeather } from "./weather.js";
-import { renderView, attachAddTaskHandler } from "./app.js";
-
-// Function that will check token
+// Authentication Checking
 export function ensureAuthenticated() {
-  const token = localStorage.getItem("token");
+  const token = getToken();
 
   if (!token) {
     alert("Session expired. Please login again.");
@@ -50,13 +39,3 @@ export function showContent(parameter) {
     contentArea.innerHTML = "<p>Section not found</p>";
   }
 }
-
-window.showContent = showContent;
-startClock();
-
-// Logout Functionality
-document.getElementById("logoutBtn").addEventListener("click", function (e) {
-  e.preventDefault();
-  localStorage.clear();
-  window.location.replace("/frontend/views/login.html");
-});
