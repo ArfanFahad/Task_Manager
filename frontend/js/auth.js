@@ -1,3 +1,13 @@
+// Authentication Entry Point
+/*
+import { initAuthUI } from "./features/auth/ui.js";
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  initAuthUI();
+})
+
+*/
+
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const loginFrom = document.getElementById("login-form");
