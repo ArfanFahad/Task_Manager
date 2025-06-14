@@ -1,4 +1,4 @@
-export function startClock() {
+export const startClock = () => {
   function updateDateTime() {
     const now = new Date();
     const dateTimeElement = document.getElementById("dateTime");
@@ -20,4 +20,4 @@ export function startClock() {
 
   updateDateTime();
   setInterval(updateDateTime, 1000);
-}
+};
