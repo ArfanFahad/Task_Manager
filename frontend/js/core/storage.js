@@ -1,11 +1,15 @@
-export function saveToken(token) {
+export const saveToken = (token) => {
   localStorage.setItem("token", token);
-}
+};
 
-export function saveVerifyEmail(email) {
+export const saveVerifyEmail = (email) => {
   localStorage.setItem("verifyEmail", email);
-}
+};
 
-export function getToken() {
+export const getToken = () => {
   return localStorage.getItem("token");
-}
+};
+
+export const clearSession = () => {
+  return localStorage.clear();
+};
