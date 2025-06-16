@@ -1,28 +1,22 @@
-import { getToken } from "../../core/storage.js";
+import { createTaskInDB } from "../../api.js";
 
-const API_BASE = "http://localhost:5000/api/tasks";
+export const attachAddTaskHandler = () => {
+  const addTaskBtn = document.getElementById("addTaskBtn");
+  const input = document.getElementById("taskInput");
 
-export async function createTask(taskText) {
-  const token = getToken();
-
-  try {
-    const res = await fetch(API_BASE, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ task: taskText }),
+  if (addTaskBtn && input) {
+    addTaskBtn.addEventListener("click", async () => {
+      const taskName = input.value.trim();
+      if (taskName) {
+        try {
+          await createTaskInDB(taskName);
+          input.value = "";
+        } catch (error) {
+          console.error("Error creating task: ", error);
+        }
+      }
     });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      throw new Error(data.message || "Failed to create task");
-    }
-
-    return data;
-  } catch (error) {
-    throw error;
+  } else {
+    console.warn("Add task button or input not found");
   }
-}
+};
