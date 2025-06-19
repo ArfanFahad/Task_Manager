@@ -36,12 +36,9 @@ export const showContent = (parameter) => {
       case "allTasks":
         renderView();
         break;
-      // case "completed":
-      //   // completedTask();
-      //   break;
     }
   } else {
-    contentArea.innerHTML = "<p>Section not found</p>";
+    contentArea.innerHTML = "<p>Section not found.</p>";
   }
 };
 
