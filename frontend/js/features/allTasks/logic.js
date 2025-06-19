@@ -1,25 +1,13 @@
-import { getToken } from "../../core/storage.js";
+import { addTaskToUI } from "../../ui.js";
+import { fetchTasksFromDB } from "../../api.js";
+import { taskCompleted } from "../completed/logic.js";
 
-const API_BASE = "http://localhost:5000/api/tasks";
-
-export async function fetchAllTasks() {
-  const token = getToken();
-
+export const renderView = async () => {
   try {
-    const res = await fetch(API_BASE, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.message || "Failed to fetch tasks");
-    }
-
-    return data;
+    const tasks = await fetchTasksFromDB();
+    tasks.forEach(addTaskToUI);
+    taskCompleted(); // Line Through Feature
   } catch (error) {
-    throw error;
+    console.error("Error occured: ", error.message);
   }
-}
+};
