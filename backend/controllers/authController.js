@@ -22,6 +22,21 @@ export const registerUser = async (req, res) => {
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
+      if (existingUser.is_verified) {
+        return res.status(409).json({ message: "Email Already Exist" });
+      } else {
+        // Resend verification code
+        const newCode = generateVerificationCode();
+        await replaceVerificationCode(email, newCode);
+        await sendVerificationEmail(email, newCode);
+
+        return res.status(200).json({
+          message: "User exists but not verified. Verification code re-sent.",
+        });
+      }
+    }
+
+    if (existingUser) {
       return res.status(409).json({ message: "Email Already Exist." });
     }
 
