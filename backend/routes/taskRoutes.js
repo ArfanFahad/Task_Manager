@@ -6,6 +6,7 @@ import {
   removeTask,
   editTask,
   getTaskSummary,
+  getTaskStats,
 } from "../controllers/taskController.js";
 import { authenticateUser } from "../middleware/authMiddleware.js";
 
@@ -13,6 +14,9 @@ const router = express.Router();
 
 // OPEN API for Task Summary
 router.get("/getSummary", getTaskSummary);
+
+// Protected API for Single Users Tasks Summary
+router.get("/user", authenticateUser, getTaskStats);
 
 //Route to get all tasks
 router.get("/", authenticateUser, getTasks);
