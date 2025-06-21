@@ -27,3 +27,5 @@ export const taskCompleted = () => {
     }
   });
 };
+
+export const getCompletedTasks = () => {};
