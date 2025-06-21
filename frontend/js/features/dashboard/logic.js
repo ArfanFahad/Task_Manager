@@ -3,6 +3,7 @@ import { startClock } from "../widgets/time.js";
 import { renderView } from "../allTasks/logic.js";
 import { getToken, clearSession } from "../../core/storage.js";
 import { attachAddTaskHandler } from "../createTask/logic.js";
+import { taskStats } from "./taskStats.js";
 
 // Authentication Checking
 export const ensureAuthenticated = () => {
@@ -29,6 +30,7 @@ export const showContent = (parameter) => {
       case "dashboard":
         loadWeather();
         startClock();
+        taskStats();
         break;
       case "createTask":
         attachAddTaskHandler();
