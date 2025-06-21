@@ -14,24 +14,22 @@
         <nav>
           <ul>
             <li>
-              <button onclick="showContent('dashboard')">Dashboard</button>
+              <button data-section="dashboard">Dashboard</button>
             </li>
             <li>
-              <button onclick="showContent('createTask')">Create Task</button>
+              <button data-section="createTask">Create Task</button>
             </li>
             <li>
-              <button onclick="showContent('allTasks')" id="getTaskBtn">
-                All Tasks
-              </button>
+              <button data-section="allTasks" id="getTaskBtn">All Tasks</button>
             </li>
             <li>
-              <button onclick="showContent('completed')">Completed</button>
+              <button data-section="completed">Completed</button>
             </li>
             <li>
-              <button onclick="showContent('pending')">Pending</button>
+              <button data-section="pending">Pending</button>
             </li>
             <li>
-              <button onclick="showContent('setting')">Setting</button>
+              <button data-section="setting">Setting</button>
             </li>
             <li>
               <button id="logoutBtn">Logout</button>
@@ -100,7 +98,7 @@
 
       <template id="completed-template">
         <h2>Completed Template</h2>
-        <p>This is completed Template</p>
+        <ul id="taskList"></ul>
       </template>
 
       <template id="pending-template">
@@ -115,6 +113,5 @@
     </div>
 
     <script src="../js/dashboard.js" type="module"></script>
-    <script src="../js/app.js" type="module"></script>
   </body>
 </html>
