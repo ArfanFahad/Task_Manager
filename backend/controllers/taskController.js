@@ -132,3 +132,35 @@ export const getTaskSummary = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch task summary" });
   }
 };
+
+// Getting Task Stats for Dashboard for Sigle User
+export const getTaskStats = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const total = await pool.query(
+      `SELECT COUNT(*) FROM tasks WHERE user_id = $1`,
+      [userId]
+    );
+
+    const completed = await pool.query(
+      `SELECT COUNT(*) FROM tasks WHERE user_id = $1 AND task_status = true`,
+      [userId]
+    );
+
+    const pending = await pool.query(
+      `SELECT COUNT(*) FROM tasks WHERE user_id = $1 AND task_status = false`,
+      [userId]
+    );
+
+    res.status(200).json({
+      total: parseInt(total.rows[0].count),
+      completed: parseInt(completed.rows[0].count),
+      pending: parseInt(pending.rows[0].count),
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Failed to get single task stats", error: err.message });
+  }
+};
