@@ -6,7 +6,6 @@ import authRoutes from "./routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
 import router from "./routes/taskRoutes.js";
 import { toggleTaskStatus } from "./controllers/taskController.js";
-import { authenticateUser } from "./middleware/authMiddleware.js";
 const app = express();
 
 dotenv.config();
@@ -26,6 +25,14 @@ app.use(express.json());
 app.use("/tasks", taskRoutes);
 
 // ===================
+// API Routes Configuration, API With No Middleware
+// ===================
+// All tasks for data for landingpage
+// API /tasks/getSummary
+// ===================
+app.use("/taskStats", taskRoutes);
+
+// ===================
 // API Routes Configuration
 // ===================
 // All task routes under /api/tasks namespace
@@ -42,9 +49,6 @@ app.use("/api/auth", authRoutes);
 
 // PATCH /api/tasks/:id/toggle
 router.patch("/:id/toggle", toggleTaskStatus);
-
-// Tasting Protected Route
-app.use("/api", authenticateUser);
 
 // ===================
 // Server Initialization
