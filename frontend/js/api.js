@@ -75,13 +75,10 @@ export async function deleteTaskFromDB(taskId) {
 // Patch Request for updating task_status
 export async function toggleTaskStatus(taskId) {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/tasks/${taskId}/toggle`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const response = await fetch(`${base_url}/${taskId}/toggle`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+    });
 
     if (!response.ok) {
       throw new Error("Failed to update task status");
