@@ -30,7 +30,11 @@ function startTimer() {
 
 resendBtn.addEventListener("click", async function () {
   startTimer();
-  const email = localStorage.getItem("verifyEmail");
+  const email = localStorage.getItem("pendingVerificationEmail");
+  if (!email) {
+    alert("No email found to resend code.");
+    return;
+  }
   const res = await fetch("http://localhost:5000/api/auth/resend-code", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -49,7 +53,7 @@ startTimer();
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const code = document.getElementById("vCode").value;
-  const email = localStorage.getItem("verifyEmail");
+  const email = localStorage.getItem("pendingVerificationEmail");
 
   // Sending the code to server for matching with db code
   const response = await fetch("http://localhost:5000/api/auth/verify", {
@@ -61,6 +65,7 @@ form.addEventListener("submit", async (e) => {
   const result = await response.json();
   if (response.ok) {
     alert("Verification Successfull");
+    localStorage.removeItem("pendingVerificationEmail");
     window.location.href = "../views/login.html";
   } else {
     alert("Verification Failed: ", +result.message);
