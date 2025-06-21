@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await res.json();
 
         if (res.ok) {
-          localStorage.setItem("verifyEmail", email);
+          localStorage.setItem("pendingVerificationEmail", email);
           window.location.href = "../views/verify.html";
         } else {
           message.textContent = data.message || "Something went wrong.";
@@ -71,6 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (res.ok) {
           localStorage.setItem("token", data.token);
           window.location.href = "/frontend/views/dashboard.html";
+        } else if (
+          data.message === "Please verify your email before logging in."
+        ) {
+          localStorage.setItem("pendingVerificationEmail", email);
+          window.location.href = "/frontend/views/verify.html";
         } else {
           message.textContent = data.message || "Something went wrong.";
         }
