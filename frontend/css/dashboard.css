@@ -208,3 +208,48 @@ body {
 }
 
 /* All Tasks Style End */
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 14px;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-btn {
+  background-color: #2563eb;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+}
+
+.delete-btn {
+  background-color: #ef4444;
+  color: white;
+  margin-left: 12px;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
+}
+
+.edit-input {
+  padding: 8px 12px;
+  width: 280px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.2s ease-in-out;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
