@@ -92,6 +92,12 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ message: "user not found" });
     }
 
+    if (!user.is_verified) {
+      return res
+        .status(403)
+        .json({ message: "Please verify your email before logging in." });
+    }
+
     // Compare provided password with hashed password in database
     const isMatch = await bcrypt.compare(password, user.password);
 
