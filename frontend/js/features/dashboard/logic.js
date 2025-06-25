@@ -1,6 +1,6 @@
 import { loadWeather } from "../widgets/weather.js";
 import { startClock } from "../widgets/time.js";
-import { renderView, completedTask } from "../allTasks/logic.js";
+import { renderView, renderCompletedTask } from "../allTasks/logic.js";
 import { getToken, clearSession } from "../../core/storage.js";
 import { attachAddTaskHandler } from "../createTask/logic.js";
 import { taskStats } from "./taskStats.js";
@@ -39,7 +39,7 @@ export const showContent = (parameter) => {
         renderView();
         break;
       case "completed":
-        completedTask();
+        renderCompletedTask();
         break;
     }
   } else {
