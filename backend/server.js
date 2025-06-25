@@ -27,8 +27,8 @@ app.use("/tasks", taskRoutes);
 // ===================
 // API Routes Configuration, API With No Middleware
 // ===================
-// All tasks for data for landingpage
-// API /tasks/getSummary
+// Tasks of Single User on Dashboard
+// API /taskStats
 // ===================
 app.use("/taskStats", taskRoutes);
 
@@ -39,6 +39,14 @@ app.use("/taskStats", taskRoutes);
 // API With Middleware / GET
 // ===================
 app.use("/api/tasks", taskRoutes);
+
+// ===================
+// API Routes Configuration
+// ===================
+// Only Completed Tasks for Single User
+// API With Middleware / GET
+// ===================
+app.use("/user", taskRoutes);
 
 // ===================
 // API Routes Configuration
