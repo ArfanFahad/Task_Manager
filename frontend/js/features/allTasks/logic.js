@@ -20,12 +20,15 @@ export const renderCompletedTask = async () => {
 
     if (tasks.length === 0) {
       list.innerHTML = "<li>No completed tasks found.</li>";
+      list.style.listStyleType = "none";
+      list.style.marginTop = "20px";
       return;
     }
 
     tasks.forEach((task) => {
       const li = document.createElement("li");
       li.textContent = `${task.task_name}`;
+      li.classList.add("completed-task");
       list.appendChild(li);
     });
   } catch (error) {
