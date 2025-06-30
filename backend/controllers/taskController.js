@@ -180,8 +180,29 @@ export const getCompletedTasks = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Failed to get user_tasks",
+      message: "Failed to get user completed tasks",
       error: err.message,
+    });
+  }
+};
+
+// Getting Pending task of user
+export const getPendingTasks = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user_tasks = await pool.query(
+      `SELECT task_name FROM tasks WHERE user_id = $1 AND task_status = false`,
+      [userId]
+    );
+
+    res.status(200).json({
+      user_tasks: user_tasks.rows,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to get user pending tasks",
+      error: error.message,
     });
   }
 };
