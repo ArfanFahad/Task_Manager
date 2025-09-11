@@ -1,29 +1,33 @@
-# 📝 Task Manager App
+# Task Manager App Features
 
-A full-stack Task Manager web application that allows users to register, log in, and manage their personal task list. Built using **Node.js**, **Express**, **PostgreSQL**, and **Vanilla JavaScript**.
+## ✅ Current Features
 
----
+- Add, edit, delete, get tasks (UI + backend + database) - ✅
+- Task saved per user (planned) - ✅
+- Modular folder structure - ✅
+- Frontend & backend separated - ✅
+- User registration with email - ✅
+- Email verification system - ✅
+- JWT/session-based login (to be decided) - ✅
+- Dashboard for user-specific tasks - ✅
+- Error handling UI messages - (Pending)
+- Form validations - ✅
 
-## 🚀 Features
+🔐 Authentication Flow
 
-- 🔐 User authentication (Sign up, Login)
-- ✅ Add, Edit, Delete, Complete tasks
-- 🧠 Each user sees only their own tasks
-- 🌐 RESTful API structure
-- 🗃️ PostgreSQL relational database
+1. User visits
+2. Fills form
+3. Backend creates users
+4. User redirected to verifification page
+5. User enters code that is being sent to Email
+6. Backend checks code
+7. Now user can go to dashboard after login
 
----
+## 💡 Future Ideas
 
-## 🛠️ Technologies Used
-
-**Frontend**
-
-- HTML, CSS, JavaScript (Vanilla)
-
-**Backend**
-
-- Node.js
-- Express.js
-- PostgreSQL
-- bcrypt (for password hashing)
-- JSON Web Tokens (for auth)
+- Task categories/labels (work, personal, etc.)
+- Due dates/reminders
+- Priority levels
+- Drag & drop task ordering
+- Dark mode
+- Mobile view optimization
