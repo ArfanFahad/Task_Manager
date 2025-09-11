@@ -34,5 +34,3 @@ export async function sendVerificationEmail(toEmail, verificationCode) {
     console.error("Failed to send email: ", error.message);
   }
 }
-
-// sendVerificationEmail("mrsfarjanafahad@gmail.com", genereateVerificationCode());
