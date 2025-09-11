@@ -1,0 +1,22 @@
+
+# users table
+create table users (
+	id serial primary key,
+	username varchar(50) not null, 
+	email text not null unique, 
+	password text not null, 
+	verification_code text,
+	verification_expires timestamp,
+	reset_token text,
+	reset_token_expires timestamp,
+	created_at timestamp default now()
+)
+
+# tasks table 
+create table tasks (
+	id serial primary key,
+	task_name text not null,
+	task_status boolean default false,
+	user_id integer references users(id) on delete cascade,
+	created_at timestamp default now()
+)
