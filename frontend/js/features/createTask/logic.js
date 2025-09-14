@@ -1,4 +1,5 @@
 import { createTaskInDB } from "../../api.js";
+import { showModal } from "../../ui/modal.js";
 
 export const attachAddTaskHandler = () => {
   const addTaskBtn = document.getElementById("addTaskBtn");
@@ -10,6 +11,7 @@ export const attachAddTaskHandler = () => {
       if (taskName) {
         try {
           await createTaskInDB(taskName);
+          showModal(taskName);
           input.value = "";
         } catch (error) {
           console.error("Error creating task: ", error);
