@@ -11,8 +11,7 @@ export const attachAddTaskHandler = () => {
       if (taskName) {
         try {
           await createTaskInDB(taskName);
-          showModal(taskName);
-          input.value = "";
+          showModal("Task Created", taskName);
         } catch (error) {
           console.error("Error creating task: ", error);
         }
