@@ -1,7 +1,5 @@
 body {
   margin: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background: linear-gradient(to right, #43cea2, #185a9d);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,6 +91,8 @@ button:hover {
 .redirect a {
   color: #185a9d;
   text-decoration: none;
+  margin-left: 0.2rem;
+  font-size: medium;
   font-weight: bold;
 }
 
