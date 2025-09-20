@@ -65,7 +65,7 @@ form.addEventListener("submit", async (e) => {
 
   const result = await response.json();
   if (response.ok) {
-    showModal("Verfication Successful, redirecting...");
+    alert("Verification Successful, redirecting...");
     localStorage.removeItem("pendingVerificationEmail");
     window.location.href = "../views/login.html";
   } else {
