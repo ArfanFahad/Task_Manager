@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  /* background: #f0f2f5; */
-  background: linear-gradient(to right, #403a3e, #be5869);
-  color: #f0f0f0;
-}
-
 .landing-container {
   display: flex;
   flex-direction: column;
