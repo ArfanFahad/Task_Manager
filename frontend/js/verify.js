@@ -4,6 +4,7 @@ const form = document.getElementById("verifyForm");
 const timerDisplay = document.getElementById("timer");
 const statusMessage = document.getElementById("status");
 const resendBtn = document.getElementById("resendBtn");
+import { showModal } from "./ui/modal.js";
 
 function startTimer() {
   timeLeft = 60;
@@ -64,7 +65,7 @@ form.addEventListener("submit", async (e) => {
 
   const result = await response.json();
   if (response.ok) {
-    alert("Verification Successfull");
+    showModal("Verfication Successful, redirecting...");
     localStorage.removeItem("pendingVerificationEmail");
     window.location.href = "../views/login.html";
   } else {
