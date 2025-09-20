@@ -20,12 +20,7 @@
   text-align: center;
 }
 
-.custom-modal button {
+.modal-content p {
   margin-top: 1rem;
-  padding: 0.5rem 1.2rem;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  font-size: x-large;
 }
