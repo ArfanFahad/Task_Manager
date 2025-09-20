@@ -1,4 +1,4 @@
-export function showModal(message) {
+export function showModal(title, message) {
   const existing = document.querySelector(".custom-modal");
   if (existing) existing.remove(); // remove old modal
 
@@ -6,14 +6,19 @@ export function showModal(message) {
   modal.className = "custom-modal";
   modal.innerHTML = `
     <div class="modal-content">
-        <p>Task Created: <b>${message}</b></p>
-        <button id="closeModalBtn">OK</button>
+        <h2>${title}</h2>
+        <p>${message}</p>
     </div>
   `;
 
+  setTimeout(() => {
+    if (document.body.contains(modal)) {
+      document.body.removeChild(modal);
+    }
+  }, 2000);
+
   document.body.appendChild(modal);
 
-  modal.querySelector("#closeModalBtn").addEventListener("click", () => {
-    modal.remove();
-  });
+  const input = document.getElementById("taskInput");
+  input.value = "";
 }
